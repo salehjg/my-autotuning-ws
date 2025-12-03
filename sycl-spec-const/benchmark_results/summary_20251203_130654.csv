@@ -1,0 +1,5 @@
+Method,TileSize,MeanRuntime(ms),MedianRuntime(ms),StdDev(ms)
+SpecConst,4,4099.091,4099.648,78.308
+SpecConst,8,3664.830,3664.417,106.429
+Define,4,3522.586,3518.916,69.054
+Define,8,3323.217,3307.204,50.346

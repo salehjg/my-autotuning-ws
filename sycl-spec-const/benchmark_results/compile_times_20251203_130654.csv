@@ -1,0 +1,5 @@
+Method,TileSize,Repetition,CompileTime(s)
+SpecConst,4,0,3.8172595500946045
+SpecConst,8,1,3.8172595500946045
+Define,4,0,3.5528366565704346
+Define,8,1,3.837780237197876
