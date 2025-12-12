@@ -32,7 +32,7 @@ cmake -G Ninja ../llvm \
   -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld" \
   -DLLVM_TARGETS_TO_BUILD="X86" \
   -DLLVM_ENABLE_TERMINFO=OFF \
-  -DCMAKE_INSTALL_PREFIX=llvm_installdir_abs_path \
+  -DCMAKE_INSTALL_PREFIX=${llvm_installdir_abs_path} \
   -DLLVM_ENABLE_RUNTIMES=""
 
 ninja -j$(nproc)  
