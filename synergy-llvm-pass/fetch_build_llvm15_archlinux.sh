@@ -40,4 +40,4 @@ ninja install
 echo "The built binaries are under llvm-project-llvmorg-15.0.1/build/bin"
 echo "Installed it under ${llvm_installdir_abs_path}"
 
-#export CMAKE_PREFIX_PATH=$llvm_installdir_abs_path
+
