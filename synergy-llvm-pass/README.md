@@ -1,24 +1,41 @@
 # How to (saleh)
 
-## Build LLVM15 from source (Archlinux)
+## 0. System-wide Setup
 ```bash
-bash fetch_build_llvm15_archlinux.sh
+sudo pacman -S nvidia cuda
+yay -S gcc-12
 ```
 
-## Build The LLVM Pass
+## 1. Setup Conda For CUDA
 ```bash
-export CC=gcc-12
-export CXX=g++-12
-export AR=ar-12
-export RANLIB=ranlib-12
-export LD=ld-12
-export CMAKE_PREFIX_PATH=/tmp/llvm15_installdir
+conda create -n py310_cuda118_rt python=3.10 -y
+conda activate py310_cuda118_rt
+conda install -c nvidia -c conda-forge cuda-runtime=11.8 cudnn=8 -y
+conda install ninja cmake
+```
 
-cd my-autotuning-ws/synergy-llvm-pass/training-dataset/passes
-rm -rf build
-mkdir build
-cd build
-cmake ..
-make -j
-echo "The built libfeature_pass.so should be under my-autotuning-ws/synergy-llvm-pass/training-dataset/passes/build/feature-pass"
+## 2. Build LLVM15 (no SYCL support)
+```bash
+bash 00_build_llvm15_clang15.sh
+# source llvm15_installdir/set_envs.sh
+```
+
+## 3. Build DPCPP With NVIDIA Support
+```bash
+bash 01_build_dpcpp.sh
+# source dpcpp_build/installdir/set_envs.sh
+```
+
+## 4. Build LLVM Passes
+```bash
+# source llvm15_installdir/set_envs.sh
+source dpcpp_build/installdir/set_envs.sh
+bash 02_build_passes.sh
+```
+
+## 5. Run LLVM Passes
+Do NOT close the previous terminal session (to keep the env variables).
+```bash
+cd training-dataset
+bash extract_features.sh
 ```

@@ -32,17 +32,22 @@ cmake --build $SCRIPT_DIR/passes/build -j
 
 ######################################################################################
 
-alias sycl="$DPCPP_CLANG -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -fsycl-device-only"
-alias opt=opt-15
+sycl() {
+  $DPCPP_CLANG -O3 -fsycl -fsycl-targets=nvptx64-nvidia-cuda -fsycl-device-only "$@"
+}
+
+opt() {
+  opt
+}
 
 mkdir -p  $SCRIPT_DIR/micro/bitcode
 for file in $SCRIPT_DIR/micro/*.cpp; do
   name=`basename ${file%.*}`
-  
+
   if [[ ! -f "$SCRIPT_DIR/micro/bitcode/$name.bc" ]]; then
     echo "Generating bitcode for $name"
     sycl -Wno-unknown-cuda-version $file -o  $SCRIPT_DIR/micro/bitcode/$name.bc
-  fi 
+  fi
 done
 
 mkdir -p $SCRIPT_DIR/micro/features
